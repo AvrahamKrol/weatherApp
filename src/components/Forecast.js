@@ -1,34 +1,36 @@
+// Core
+import { useState } from 'react';
+
+// Components
+import { ForecastItem } from './ForecastItem';
+
+// Helpers
+import { fetchify } from '../helpers/fetchify';
+// Hooks
+import { useForecast } from '../hooks';
+
 export const Forecast = () => {
+    const { forecastList, isFetched } = useForecast();
+    const [isSelected, setIsSelected] = useState('');
+
+    const isSelectedHandler = () => {
+        setIsSelected(isSelected === 'selected' ? '' : 'selected');
+        // eslint-disable-next-line
+        console.log('isSelected');
+
+        return isSelected;
+    };
+
+    const forecastListJSX = forecastList?.map((forecastItem) => {
+        return <ForecastItem
+            key = { forecastItem.id } { ...forecastItem }
+            isSelected = { isSelected }
+            onClick = { isSelectedHandler } />;
+    }).slice(0, 7);
+
     return (
         <div className = 'forecast'>
-            <div className = 'day cloudy selected'>
-                <p>Пятница</p>
-                <span>17</span>
-            </div>
-            <div className = 'day cloudy'>
-                <p>Суббота</p>
-                <span>19</span>
-            </div>
-            <div className = 'day cloudy'>
-                <p>Понедельник</p>
-                <span>18</span>
-            </div>
-            <div className = 'day cloudy'>
-                <p>Вторник</p>
-                <span>21</span>
-            </div>
-            <div className = 'day rainy'>
-                <p>Среда</p>
-                <span>16</span>
-            </div>
-            <div className = 'day rainy'>
-                <p>Четверг</p>
-                <span>19</span>
-            </div>
-            <div className = 'day sunny'>
-                <p>Пятница</p>
-                <span>26</span>
-            </div>
+            { fetchify(isFetched, forecastListJSX) }
         </div>
     );
 };

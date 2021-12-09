@@ -2,7 +2,6 @@
 import {
     Filter, Head, CurrentWeather, Forecast,
 } from './components';
-
 // Instruments
 
 
@@ -13,6 +12,7 @@ export const App = () => {
             <Head />
             <CurrentWeather />
             <Forecast />
+            { /* <Forecast /> */ }
         </main>
     );
 };

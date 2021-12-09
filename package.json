@@ -24,6 +24,7 @@
         "@hookform/resolvers": "2.8.4",
         "axios": "0.24.0",
         "date-fns": "2.27.0",
+        "dotenv": "^10.0.0",
         "mobx": "^6.3.8",
         "mobx-react-lite": "^3.2.2",
         "mobx-utils": "^6.0.4",

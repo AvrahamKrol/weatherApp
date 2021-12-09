@@ -1,5 +1,7 @@
 // Components
-
+import {
+    Filter, Head, CurrentWeather, Forecast,
+} from './components';
 
 // Instruments
 
@@ -7,7 +9,10 @@
 export const App = () => {
     return (
         <main>
-            <h1>Продвинутый виджет погоды</h1>
+            <Filter />
+            <Head />
+            <CurrentWeather />
+            <Forecast />
         </main>
     );
 };

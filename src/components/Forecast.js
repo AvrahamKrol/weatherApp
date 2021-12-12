@@ -1,5 +1,9 @@
 // Core
 import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
+// Helpers
+import { log } from '../helpers';
+
 
 // Components
 import { ForecastItem } from './ForecastItem';
@@ -7,25 +11,25 @@ import { ForecastItem } from './ForecastItem';
 // Helpers
 import { fetchify } from '../helpers/fetchify';
 // Hooks
-import { useForecast } from '../hooks';
+import { useDay, useForecast } from '../hooks';
 
-export const Forecast = () => {
+
+export const Forecast = observer(({ store }) => {
     const { forecastList, isFetched } = useForecast();
-    const [isSelected, setIsSelected] = useState('');
 
-    const isSelectedHandler = () => {
-        setIsSelected(isSelected === 'selected' ? '' : 'selected');
-        // eslint-disable-next-line
-        console.log('isSelected');
-
-        return isSelected;
+    const getSelectedDayId = (id) => {
+        store.setSelectedDayId(id);
     };
+
+    const isSelectedDay = useDay(forecastList, store.selectedDayId);
 
     const forecastListJSX = forecastList?.map((forecastItem) => {
         return <ForecastItem
-            key = { forecastItem.id } { ...forecastItem }
-            isSelected = { isSelected }
-            onClick = { isSelectedHandler } />;
+            key = { forecastItem.id }
+            onClick = { getSelectedDayId }
+            defaultDay = { forecastList[ 0 ]?.id }
+            selectedDay = { isSelectedDay?.id }
+            { ...forecastItem } />;
     }).slice(0, 7);
 
     return (
@@ -33,4 +37,4 @@ export const Forecast = () => {
             { fetchify(isFetched, forecastListJSX) }
         </div>
     );
-};
+});

@@ -1,8 +1,8 @@
 export const useDay = (days, id) => {
     if (days) {
-        const findDay = days?.find((day) => day.day === id) || days[ 0 ];
         // eslint-disable-next-line
-        console.log(findDay);
+        console.log(days?.find((day) => day?.day === id), id);
+        const findDay = days?.find((day) => day.day === id) || days[ 0 ];
 
         return findDay;
     }

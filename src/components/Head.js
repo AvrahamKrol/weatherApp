@@ -9,14 +9,16 @@ import { log } from '../helpers';
 
 
 export const Head = observer(({ formatedDay }) => {
-    const day = formatedDay && format(formatedDay?.day, 'eeee');
+    const dayOfWeek = formatedDay && format(formatedDay?.day, 'eeee');
+    const dayOfMonth = formatedDay && format(formatedDay?.day, 'd');
+    const month = formatedDay && format(formatedDay?.day, 'LLLL');
 
     return (
         <div className = 'head'>
             <div className = 'icon cloudy'></div>
             <div className = 'current-date'>
-                <p>{ day }</p>
-                <span>29 ноября</span>
+                <p>{ dayOfWeek }</p>
+                <span>{ dayOfMonth } { month }</span>
             </div>
         </div>
     );

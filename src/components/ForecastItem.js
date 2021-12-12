@@ -7,7 +7,7 @@ export const ForecastItem = observer((props) => {
         day, id, type, temperature, onClick, selectedDay, defaultDay,
     } = props;
 
-    const getSelectedDayIdHandler = () => {
+    const handleGetSelectedDayId = () => {
         onClick(id);
     };
     const isSelected = selectedDay ||  defaultDay;
@@ -16,7 +16,7 @@ export const ForecastItem = observer((props) => {
 
     return (
         <div
-            onClick = { getSelectedDayIdHandler }
+            onClick = { handleGetSelectedDayId }
             className = { `day ${type} ${isSelected === id ? 'selected' : ''}` }>
             <p>{ format(day, 'eeee') }</p>
             <span>{ temperature }</span>

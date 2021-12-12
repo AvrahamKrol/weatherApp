@@ -17,16 +17,18 @@ import { useDay, useForecast } from '../hooks';
 export const Forecast = observer(({ store }) => {
     const { forecastList, isFetched } = useForecast();
 
-    const getSelectedDayId = (id) => {
+    const setSelectedDayId = (id) => {
         store.setSelectedDayId(id);
     };
 
-    const isSelectedDay = useDay(forecastList, store.selectedDayId);
+    const isSelectedDay = useDay(forecastList, store.isSelectedDayId);
+    // eslint-disable-next-line
+    console.log(isSelectedDay);
 
     const forecastListJSX = forecastList?.map((forecastItem) => {
         return <ForecastItem
             key = { forecastItem.id }
-            onClick = { getSelectedDayId }
+            onClick = { setSelectedDayId }
             defaultDay = { forecastList[ 0 ]?.id }
             selectedDay = { isSelectedDay?.id }
             { ...forecastItem } />;

@@ -15,9 +15,6 @@ export const App = observer(() => {
     const store = useStore();
     const { forecastList } = useForecast();
     const day = forecastList && useDay(forecastList, store.isSelectedDayId);
-    // eslint-disable-next-line
-            console.log(day);
-
 
     return (
         <main>

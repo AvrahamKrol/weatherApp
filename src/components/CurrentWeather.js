@@ -1,15 +1,18 @@
 import { observer } from 'mobx-react-lite';
 
-export const CurrentWeather = observer(({ rain_probability, humidity, temperature  }) => {
-    // eslint-disable-next-line
-    console.log(rain_probability, humidity, temperature);
+export const CurrentWeather = observer(({ formatedDay }) => {
+    const day = formatedDay && {
+        temperature:      formatedDay?.temperature,
+        rain_probability: formatedDay?.rain_probability,
+        humidity:         formatedDay?.humidity,
+    };
 
     return (
         <div className = 'current-weather'>
-            <p className = 'temperature'>{ temperature }</p>
+            <p className = 'temperature'>{ day?.temperature }</p>
             <p className = 'meta'>
-                <span className = 'rainy'>%{ rain_probability }</span>
-                <span className = 'humidity'>%{ humidity }</span>
+                <span className = 'rainy'>%{ day?.rain_probability }</span>
+                <span className = 'humidity'>%{ day?.humidity }</span>
             </p>
         </div>
     );

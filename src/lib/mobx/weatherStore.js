@@ -33,7 +33,9 @@ export class WeatherStore {
                 return filteredDays;
             });
 
-        makeAutoObservable(this);
+        makeAutoObservable(this, {}, {
+            autoBind: true,
+        });
     }
 
     setType(type) {
@@ -70,6 +72,10 @@ export class WeatherStore {
 
     setSelectedDayId(id) {
         this.selectedDayId = id;
+    }
+
+    get isSelectedDayId() {
+        return this.selectedDayId;
     }
 
     resetFilter() {

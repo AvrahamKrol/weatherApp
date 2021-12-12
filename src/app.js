@@ -1,31 +1,29 @@
+// Core
+import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 // Components
 import {
     Filter, Head, CurrentWeather, Forecast,
 } from './components';
 // Instruments
-// Mobx
-import { WeatherStore } from './lib/mobx/weatherStore';
+import { log } from './helpers';
 // Hooks
-import { useForecast } from './hooks';
-
-const store = new WeatherStore();
+import { useDay, useForecast, useStore } from './hooks';
 
 
-export const App = observer(async () => {
+export const App = observer(() => {
+    const store = useStore();
     const { forecastList } = useForecast();
-    const day  = await forecastList?.find((item) => {
-        return item.day === store.selectedDayId || forecastList[ 0 ]?.id;
-    });
-    const formatedDay = day;
+    const day = forecastList && useDay(forecastList, store.isSelectedDayId);
     // eslint-disable-next-line
-    console.log(formatedDay);
+            console.log(day);
+
 
     return (
         <main>
             <Filter />
-            <Head store = { store } foramatedDay = { formatedDay } />
-            <CurrentWeather store = { store } foramatedDay = { formatedDay } />
+            <Head formatedDay = { day } />
+            <CurrentWeather formatedDay = { day } />
             <Forecast store = { store } />
         </main>
     );

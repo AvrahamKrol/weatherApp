@@ -17,7 +17,7 @@ export const ForecastItem = observer((props) => {
     return (
         <div
             onClick = { getSelectedDayIdHandler }
-            className = { `day ${type} ${isSelected === id ? 'selected' : null}` }>
+            className = { `day ${type} ${isSelected === id ? 'selected' : ''}` }>
             <p>{ format(day, 'eeee') }</p>
             <span>{ temperature }</span>
         </div>

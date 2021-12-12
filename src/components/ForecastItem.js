@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
 import { observer } from 'mobx-react-lite';
 import { log } from '../helpers';
 
@@ -18,7 +19,7 @@ export const ForecastItem = observer((props) => {
         <div
             onClick = { handleGetSelectedDayId }
             className = { `day ${type} ${isSelected === id ? 'selected' : ''}` }>
-            <p>{ format(day, 'eeee') }</p>
+            <p>{ format(day, 'EEEE', { locale: ru }) }</p>
             <span>{ temperature }</span>
         </div>
     );

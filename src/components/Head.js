@@ -1,24 +1,22 @@
-import { useEffect } from 'react';
 import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
 // Mobx
 import { observer } from 'mobx-react-lite';
 // Hooks
-import { useDay, useForecast, useStore  } from '../hooks';
-// Helpers
-import { log } from '../helpers';
+import { useFormateMonth } from '../hooks';
 
 
 export const Head = observer(({ formatedDay }) => {
-    const dayOfWeek = formatedDay && format(formatedDay?.day, 'eeee');
-    const dayOfMonth = formatedDay && format(formatedDay?.day, 'd');
-    const month = formatedDay && format(formatedDay?.day, 'LLLL');
+    const dayOfWeek = formatedDay && format(formatedDay?.day, 'eeee', { locale: ru });
+    const dayOfMonth = formatedDay && format(formatedDay?.day, 'd', { locale: ru });
+    const month = formatedDay && format(formatedDay?.day, 'LLLL', { locale: ru });
 
     return (
         <div className = 'head'>
-            <div className = 'icon cloudy'></div>
+            <div className = { `icon ${formatedDay?.type}` }></div>
             <div className = 'current-date'>
                 <p>{ dayOfWeek }</p>
-                <span>{ dayOfMonth } { month }</span>
+                <span>{ dayOfMonth } { useFormateMonth(month) }</span>
             </div>
         </div>
     );

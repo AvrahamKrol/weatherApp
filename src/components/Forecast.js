@@ -21,9 +21,6 @@ export const Forecast = observer((props) => {
         store.setSelectedDayId(id);
     };
 
-    // eslint-disable-next-line
-        // console.log(isFiltered);
-
     const forecastListJSX = forecastList?.map((forecastItem) => {
         return <ForecastItem
             key = { forecastItem.id }
@@ -42,8 +39,14 @@ export const Forecast = observer((props) => {
             { ...filteredItem } />;
     }).slice(0, 7);
 
+    // const message = ;
+    // eslint-disable-next-line
+        console.log(props.filteredList);
+
     return (
         <div className = 'forecast'>
+            { props.isNothing
+            && <p className = 'message'>По заданным критериям нет доступных дней</p> }
             { !store.isFiltered && fetchify(isFetched, forecastListJSX) }
             { store.isFiltered && filteredListJSX }
         </div>

@@ -20,7 +20,7 @@ export const Filter = observer((props) => {
     const { forecastList } = useForecast();
 
     const {
-        applyFilter,
+        applyFilter, resetFilter,
     } = store;
 
     const form = useForm({
@@ -38,11 +38,16 @@ export const Filter = observer((props) => {
         };
         applyFilter(filter);
         // eslint-disable-next-line
+    };
+
+    const handleReset = () => {
+        resetFilter();
         setIsCloudy('');
         setIsSunny('');
         setIsType('');
         form.reset();
     };
+
     const handleIsCloudy = () => {
         if (!isCloudy) {
             setIsCloudy('selected');
@@ -64,24 +69,30 @@ export const Filter = observer((props) => {
     return (
         <form onSubmit = { handleSubmit(onSubmit) } className = 'filter'>
             <span
+                disabled = { store.isFiltered }
                 onClick = { handleIsCloudy }
                 className = { `checkbox ${isCloudy}` }>Облачно</span>
             <span
+                disabled = { store.isFiltered }
                 onClick = { handleIsSunny }
                 className = { `checkbox ${isSunny}` }>Солнечно</span>
             <p className = 'custom-input'>
                 <label htmlFor = 'min-temperature'>Минимальная температура</label>
                 <Input
+                    disabled = { store.isFiltered }
                     id = 'min-temperature'
                     register = { register('minTemperature') } />
             </p>
             <p className = 'custom-input'>
                 <label htmlFor = 'max-temperature'>Максимальная температура</label>
                 <Input
+                    disabled = { store.isFiltered }
                     id = 'max-temperature'
                     register = { register('maxTemperature') } />
             </p>
-            <button>Отфильтровать</button>
+            { !store.isFiltered && <button>Отфильтровать</button> }
+            { store.isFiltered && <button onClick = { handleReset }>Сбросить</button> }
         </form>
     );
 });
+// disabled = { store.isFormBlocked }

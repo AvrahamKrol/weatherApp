@@ -18,20 +18,26 @@ export const App = observer(() => {
 
     const filteredList = store.filteredDays(forecastList);
     const isFilteredDay = useDay(filteredList, store.isSelectedDayId);
-
+    const isNothing = store.isFiltered && filteredList.length === 0;
     // eslint-disable-next-line
-        // console.log(store.applyFilter(isFilter));
+    console.log(store.type, filteredList);
 
     return (
         <main>
             <Filter />
-            <Head formatedDay = { day } isFilteredDay = { isFilteredDay } />
-            <CurrentWeather formatedDay = { day } isFilteredDay = { isFilteredDay } />
+            <Head
+                isNothing = { isNothing }
+                formatedDay = { day }
+                isFilteredDay = { isFilteredDay } />
+            <CurrentWeather
+                isNothing = { isNothing }
+                formatedDay = { day }
+                isFilteredDay = { isFilteredDay } />
             <Forecast
+                isNothing = { isNothing }
                 isSelectedDay = { day }
                 filteredList = { filteredList }
                 isFilteredDay = { isFilteredDay } />
         </main>
     );
 });
-

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../hooks';
 
-export const CurrentWeather = observer(({ formatedDay, isFilteredDay }) => {
+export const CurrentWeather = observer(({ formatedDay, isFilteredDay, isNothing }) => {
     const store = useStore();
 
     let day = null;
@@ -20,13 +20,17 @@ export const CurrentWeather = observer(({ formatedDay, isFilteredDay }) => {
         };
     }
 
-    return (
-        <div className = 'current-weather'>
-            <p className = 'temperature'>{ day?.temperature }</p>
-            <p className = 'meta'>
-                <span className = 'rainy'>%{ day?.rain_probability }</span>
-                <span className = 'humidity'>%{ day?.humidity }</span>
-            </p>
-        </div>
-    );
+    if (!isNothing) {
+        return (
+            <div className = 'current-weather'>
+                <p className = 'temperature'>{ day?.temperature }</p>
+                <p className = 'meta'>
+                    <span className = 'rainy'>%{ day?.rain_probability }</span>
+                    <span className = 'humidity'>%{ day?.humidity }</span>
+                </p>
+            </div>
+        );
+    }
+
+    return '';
 });

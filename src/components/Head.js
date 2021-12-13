@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 // Hooks
 import { useFormateMonth, useStore } from '../hooks';
 
-export const Head = observer(({ formatedDay, isFilteredDay }) => {
+export const Head = observer(({ formatedDay, isFilteredDay, isNothing }) => {
     const store = useStore();
     let dayOfWeek = null;
     let dayOfMonth = null;
@@ -24,14 +24,17 @@ export const Head = observer(({ formatedDay, isFilteredDay }) => {
         month = isFilteredDay && format(isFilteredDay?.day, 'LLLL', { locale: ru });
         className = `icon ${isFilteredDay?.type}`;
     }
-
-    return (
-        <div className = 'head'>
-            <div className = { className }></div>
-            <div className = 'current-date'>
-                <p>{ dayOfWeek }</p>
-                <span>{ dayOfMonth } { useFormateMonth(month) }</span>
+    if (!isNothing) {
+        return (
+            <div className = 'head'>
+                <div className = { className }></div>
+                <div className = 'current-date'>
+                    <p>{ dayOfWeek }</p>
+                    <span>{ dayOfMonth } { useFormateMonth(month) }</span>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
+
+    return '';
 });

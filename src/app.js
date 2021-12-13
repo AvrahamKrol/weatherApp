@@ -1,5 +1,5 @@
 // Core
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 // Components
 import {
@@ -15,13 +15,21 @@ export const App = observer(() => {
     const store = useStore();
     const { forecastList } = useForecast();
     const day = forecastList && useDay(forecastList, store.isSelectedDayId);
+    const [isFilter, setIsFilter] = useState(false);
+
+    const handleGetFilter = (filter) => {
+        setIsFilter(filter);
+    };
+
+    // eslint-disable-next-line
+        // console.log(store.applyFilter(isFilter));
 
     return (
         <main>
-            <Filter />
+            <Filter getFilter = { handleGetFilter } />
             <Head formatedDay = { day } />
             <CurrentWeather formatedDay = { day } />
-            <Forecast store = { store } />
+            <Forecast store = { store } filter = { isFilter } />
         </main>
     );
 });

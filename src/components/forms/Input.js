@@ -1,4 +1,6 @@
 export const Input = (props) => {
+    // eslint-disable-next-line
+    // console.log(props);
     const input = (
         <input
             className = { props.className }

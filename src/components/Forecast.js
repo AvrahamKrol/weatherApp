@@ -11,19 +11,22 @@ import { ForecastItem } from './ForecastItem';
 // Helpers
 import { fetchify } from '../helpers/fetchify';
 // Hooks
-import { useDay, useForecast } from '../hooks';
+import { useDay, useForecast, useStore } from '../hooks';
 
 
-export const Forecast = observer(({ store }) => {
+export const Forecast = observer(({ filter }) => {
     const { forecastList, isFetched } = useForecast();
+    const store = useStore();
+    const { isFiltered } = store;
 
     const setSelectedDayId = (id) => {
         store.setSelectedDayId(id);
     };
 
-    const isSelectedDay = useDay(forecastList, store.isSelectedDayId);
     // eslint-disable-next-line
-    console.log(isSelectedDay);
+        // console.log(isFiltered);
+
+    const isSelectedDay = useDay(forecastList, store.isSelectedDayId);
 
     const forecastListJSX = forecastList?.map((forecastItem) => {
         return <ForecastItem
@@ -34,9 +37,23 @@ export const Forecast = observer(({ store }) => {
             { ...forecastItem } />;
     }).slice(0, 7);
 
+    const filteredList = store.filteredDays(forecastList);
+
+    const filteredListJSX = filteredList?.map((filteredItem) => {
+        return <ForecastItem
+            key = { filteredItem.id }
+            onClick = { setSelectedDayId }
+            defaultDay = { forecastList[ 0 ]?.id }
+            selectedDay = { isSelectedDay?.id }
+            { ...filteredItem } />;
+    }).slice(0, 7);
+    // eslint-disable-next-line
+    console.log(filteredListJSX, 'isFiltered:', isFiltered);
+
     return (
         <div className = 'forecast'>
-            { fetchify(isFetched, forecastListJSX) }
+            { !isFiltered && fetchify(isFetched, forecastListJSX) }
+            { isFiltered && filteredListJSX }
         </div>
     );
 });

@@ -7,39 +7,62 @@ import { useState } from 'react';
 import { Input } from './Input';
 import { schema } from './config';
 // Hooks
-import { useStore } from '../../hooks';
+import { useForecast, useStore } from '../../hooks';
 
 
-export const Filter = observer(() => {
+export const Filter = observer((props) => {
     const [isCloudy, setIsCloudy] = useState('');
     const [isSunny, setIsSunny] = useState('');
+    const [isType, setIsType] = useState('');
+
     const store = useStore();
+
+    const { forecastList } = useForecast();
+
+    const {
+        applyFilter,
+    } = store;
+
     const form = useForm({
-        mode:     'onTouched',
-        resolver: yupResolver(schema),
+        mode: 'onTouched',
+        // resolver: yupResolver(schema),
     });
 
-    const handleSubmit = (ev) => {
-        ev.preventDefault();
+    const { register, handleSubmit } = form;
+
+    const onSubmit = (data) => {
+        const filter = {
+            type:           isType,
+            minTemperature: data.minTemperature,
+            maxTemperature: data.maxTemperature,
+        };
+        applyFilter(filter);
         // eslint-disable-next-line
-        console.log('wow');
+        setIsCloudy('');
+        setIsSunny('');
+        setIsType('');
+        form.reset();
     };
     const handleIsCloudy = () => {
         if (!isCloudy) {
             setIsCloudy('selected');
             setIsSunny('');
+            setIsType('cloudy');
         }
     };
     const handleIsSunny = () => {
         if (!isSunny) {
             setIsSunny('selected');
             setIsCloudy('');
+            setIsType('sunny');
         }
     };
+    // eslint-disable-next-line
+    // console.log(isType);
 
 
     return (
-        <form onSubmit = { handleSubmit } className = 'filter'>
+        <form onSubmit = { handleSubmit(onSubmit) } className = 'filter'>
             <span
                 onClick = { handleIsCloudy }
                 className = { `checkbox ${isCloudy}` }>Облачно</span>
@@ -50,15 +73,13 @@ export const Filter = observer(() => {
                 <label htmlFor = 'min-temperature'>Минимальная температура</label>
                 <Input
                     id = 'min-temperature'
-                    error = { form.formState.errors.minTemperature }
-                    register = { form.register('minTemperature') } />
+                    register = { register('minTemperature') } />
             </p>
             <p className = 'custom-input'>
                 <label htmlFor = 'max-temperature'>Максимальная температура</label>
                 <Input
                     id = 'max-temperature'
-                    error = { form.formState.errors.maxTemperature }
-                    register = { form.register('maxTemperature') } />
+                    register = { register('maxTemperature') } />
             </p>
             <button>Отфильтровать</button>
         </form>

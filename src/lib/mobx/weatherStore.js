@@ -12,7 +12,7 @@ export class WeatherStore {
     constructor() {
         this
             .filteredDays = computedFn((days) => {
-                const filteredDays = days.filter((day) => {
+                const filteredDays = days?.filter((day) => {
                     const isCorrectType = this.type
                         ? this.type === day.type
                         : true;

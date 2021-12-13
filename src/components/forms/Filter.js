@@ -10,17 +10,15 @@ import { schema } from './config';
 import { useForecast, useStore } from '../../hooks';
 
 
-export const Filter = observer((props) => {
+export const Filter = observer(() => {
     const [isCloudy, setIsCloudy] = useState('');
     const [isSunny, setIsSunny] = useState('');
     const [isType, setIsType] = useState('');
 
     const store = useStore();
 
-    const { forecastList } = useForecast();
-
     const {
-        applyFilter, resetFilter,
+        applyFilter, resetFilter, setSelectedDayId,
     } = store;
 
     const form = useForm({
@@ -37,10 +35,10 @@ export const Filter = observer((props) => {
             maxTemperature: data.maxTemperature,
         };
         applyFilter(filter);
-        // eslint-disable-next-line
     };
 
     const handleReset = () => {
+        setSelectedDayId('');
         resetFilter();
         setIsCloudy('');
         setIsSunny('');

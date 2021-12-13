@@ -6,14 +6,15 @@ import { log } from '../helpers';
 export const ForecastItem = observer((props) => {
     const {
         day, id, type, temperature, onClick, selectedDay, defaultDay,
+        defaultFilteredDay,
     } = props;
 
     const handleGetSelectedDayId = () => {
         onClick(id);
     };
-    const isSelected = selectedDay ||  defaultDay;
+    const isSelected = selectedDay || defaultFilteredDay ||  defaultDay;
     // eslint-disable-next-line
-    // console.log('default: ', defaultDay, '---', isSelected);
+    console.log(isSelected, 'defaultFilteredDay:', defaultFilteredDay);
 
     return (
         <div

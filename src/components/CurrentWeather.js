@@ -1,11 +1,24 @@
 import { observer } from 'mobx-react-lite';
+import { useStore } from '../hooks';
 
-export const CurrentWeather = observer(({ formatedDay }) => {
-    const day = formatedDay && {
-        temperature:      formatedDay?.temperature,
-        rain_probability: formatedDay?.rain_probability,
-        humidity:         formatedDay?.humidity,
-    };
+export const CurrentWeather = observer(({ formatedDay, isFilteredDay }) => {
+    const store = useStore();
+
+    let day = null;
+    if (!store.isFiltered) {
+        day = formatedDay && {
+            temperature:      formatedDay?.temperature,
+            rain_probability: formatedDay?.rain_probability,
+            humidity:         formatedDay?.humidity,
+        };
+    }
+    if (store.isFiltered) {
+        day = isFilteredDay && {
+            temperature:      isFilteredDay?.temperature,
+            rain_probability: isFilteredDay?.rain_probability,
+            humidity:         isFilteredDay?.humidity,
+        };
+    }
 
     return (
         <div className = 'current-weather'>

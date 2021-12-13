@@ -1,5 +1,4 @@
 // Core
-import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 // Helpers
 import { log } from '../helpers';
@@ -11,13 +10,12 @@ import { ForecastItem } from './ForecastItem';
 // Helpers
 import { fetchify } from '../helpers/fetchify';
 // Hooks
-import { useDay, useForecast, useStore } from '../hooks';
+import { useForecast, useStore } from '../hooks';
 
 
-export const Forecast = observer(({ filter }) => {
+export const Forecast = observer((props) => {
     const { forecastList, isFetched } = useForecast();
     const store = useStore();
-    const { isFiltered } = store;
 
     const setSelectedDayId = (id) => {
         store.setSelectedDayId(id);
@@ -26,34 +24,28 @@ export const Forecast = observer(({ filter }) => {
     // eslint-disable-next-line
         // console.log(isFiltered);
 
-    const isSelectedDay = useDay(forecastList, store.isSelectedDayId);
-
     const forecastListJSX = forecastList?.map((forecastItem) => {
         return <ForecastItem
             key = { forecastItem.id }
             onClick = { setSelectedDayId }
             defaultDay = { forecastList[ 0 ]?.id }
-            selectedDay = { isSelectedDay?.id }
+            selectedDay = { props.isSelectedDay?.id }
             { ...forecastItem } />;
     }).slice(0, 7);
 
-    const filteredList = store.filteredDays(forecastList);
-
-    const filteredListJSX = filteredList?.map((filteredItem) => {
+    const filteredListJSX = props.filteredList?.map((filteredItem) => {
         return <ForecastItem
             key = { filteredItem.id }
             onClick = { setSelectedDayId }
-            defaultDay = { forecastList[ 0 ]?.id }
-            selectedDay = { isSelectedDay?.id }
+            defaultFilteredDay = { props.filteredList[ 0 ]?.id }
+            selectedDay = { props.isFilteredDay?.id }
             { ...filteredItem } />;
     }).slice(0, 7);
-    // eslint-disable-next-line
-    console.log(filteredListJSX, 'isFiltered:', isFiltered);
 
     return (
         <div className = 'forecast'>
-            { !isFiltered && fetchify(isFetched, forecastListJSX) }
-            { isFiltered && filteredListJSX }
+            { !store.isFiltered && fetchify(isFetched, forecastListJSX) }
+            { store.isFiltered && filteredListJSX }
         </div>
     );
 });

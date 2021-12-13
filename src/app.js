@@ -15,21 +15,22 @@ export const App = observer(() => {
     const store = useStore();
     const { forecastList } = useForecast();
     const day = forecastList && useDay(forecastList, store.isSelectedDayId);
-    const [isFilter, setIsFilter] = useState(false);
 
-    const handleGetFilter = (filter) => {
-        setIsFilter(filter);
-    };
+    const filteredList = store.filteredDays(forecastList);
+    const isFilteredDay = useDay(filteredList, store.isSelectedDayId);
 
     // eslint-disable-next-line
         // console.log(store.applyFilter(isFilter));
 
     return (
         <main>
-            <Filter getFilter = { handleGetFilter } />
-            <Head formatedDay = { day } />
-            <CurrentWeather formatedDay = { day } />
-            <Forecast store = { store } filter = { isFilter } />
+            <Filter />
+            <Head formatedDay = { day } isFilteredDay = { isFilteredDay } />
+            <CurrentWeather formatedDay = { day } isFilteredDay = { isFilteredDay } />
+            <Forecast
+                isSelectedDay = { day }
+                filteredList = { filteredList }
+                isFilteredDay = { isFilteredDay } />
         </main>
     );
 });

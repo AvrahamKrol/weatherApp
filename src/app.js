@@ -19,8 +19,6 @@ export const App = observer(() => {
     const filteredList = store.filteredDays(forecastList);
     const isFilteredDay = useDay(filteredList, store.isSelectedDayId);
     const isNothing = store.isFiltered && filteredList.length === 0;
-    // eslint-disable-next-line
-    console.log(store.type, filteredList);
 
     return (
         <main>

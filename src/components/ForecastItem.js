@@ -13,8 +13,6 @@ export const ForecastItem = observer((props) => {
         onClick(id);
     };
     const isSelected = selectedDay || defaultFilteredDay ||  defaultDay;
-    // eslint-disable-next-line
-    console.log(isSelected, 'defaultFilteredDay:', defaultFilteredDay);
 
     return (
         <div

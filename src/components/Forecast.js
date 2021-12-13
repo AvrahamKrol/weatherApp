@@ -39,10 +39,6 @@ export const Forecast = observer((props) => {
             { ...filteredItem } />;
     }).slice(0, 7);
 
-    // const message = ;
-    // eslint-disable-next-line
-        console.log(props.filteredList);
-
     return (
         <div className = 'forecast'>
             { props.isNothing

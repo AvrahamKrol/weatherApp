@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/AvrahamKrol/weatherApp.git/static/css/main.818356d3.chunk.css",
+    "main.js": "/AvrahamKrol/weatherApp.git/static/js/main.2207dd6f.chunk.js",
+    "main.js.map": "/AvrahamKrol/weatherApp.git/static/js/main.2207dd6f.chunk.js.map",
+    "runtime-main.js": "/AvrahamKrol/weatherApp.git/static/js/runtime-main.1618d98a.js",
+    "runtime-main.js.map": "/AvrahamKrol/weatherApp.git/static/js/runtime-main.1618d98a.js.map",
+    "static/js/2.5c71ce11.chunk.js": "/AvrahamKrol/weatherApp.git/static/js/2.5c71ce11.chunk.js",
+    "static/js/2.5c71ce11.chunk.js.map": "/AvrahamKrol/weatherApp.git/static/js/2.5c71ce11.chunk.js.map",
+    "index.html": "/AvrahamKrol/weatherApp.git/index.html",
+    "static/css/main.818356d3.chunk.css.map": "/AvrahamKrol/weatherApp.git/static/css/main.818356d3.chunk.css.map",
+    "static/js/2.5c71ce11.chunk.js.LICENSE.txt": "/AvrahamKrol/weatherApp.git/static/js/2.5c71ce11.chunk.js.LICENSE.txt",
+    "static/media/index.scss": "/AvrahamKrol/weatherApp.git/static/media/weather-icon-sunny.abd9cae1.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1618d98a.js",
+    "static/js/2.5c71ce11.chunk.js",
+    "static/css/main.818356d3.chunk.css",
+    "static/js/main.2207dd6f.chunk.js"
+  ]
+}

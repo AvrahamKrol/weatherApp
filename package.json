@@ -21,7 +21,10 @@
         "node": ">=14.x"
     },
     "dependencies": {
+        "@emotion/react": "^11.7.1",
+        "@emotion/styled": "^11.6.0",
         "@hookform/resolvers": "2.8.4",
+        "@mui/material": "^5.2.7",
         "axios": "0.24.0",
         "date-fns": "2.27.0",
         "dotenv": "^10.0.0",

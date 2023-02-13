@@ -14,37 +14,28 @@ import { useForecast, useStore } from '../hooks';
 
 
 export const Forecast = observer((props) => {
-    const { forecastList, isFetched } = useForecast();
+    const { forecastList } = useForecast();
     const store = useStore();
+
+    const actualForecastList = store.isFiltered ? props.filteredList : forecastList;
 
     const setSelectedDayId = (id) => {
         store.setSelectedDayId(id);
     };
 
-    const forecastListJSX = forecastList?.map((forecastItem) => {
-        return <ForecastItem
-            key = { forecastItem.id }
-            onClick = { setSelectedDayId }
-            defaultDay = { forecastList[ 0 ]?.id }
-            selectedDay = { props.isSelectedDay?.id }
-            { ...forecastItem } />;
-    }).slice(0, 7);
-
-    const filteredListJSX = props.filteredList?.map((filteredItem) => {
-        return <ForecastItem
-            key = { filteredItem.id }
-            onClick = { setSelectedDayId }
-            defaultFilteredDay = { props.filteredList[ 0 ]?.id }
-            selectedDay = { props.isFilteredDay?.id }
-            { ...filteredItem } />;
-    }).slice(0, 7);
-
     return (
         <div className = 'forecast'>
             { props.isNothing
             && <p className = 'message'>По заданным критериям нет доступных дней</p> }
-            { !store.isFiltered && fetchify(isFetched, forecastListJSX) }
-            { store.isFiltered && filteredListJSX }
+            { actualForecastList?.slice(0, 7).map((item) => {
+                return <ForecastItem
+                    key = { item.id }
+                    onClick = { setSelectedDayId }
+                    defaultDay = { actualForecastList[ 0 ]?.id }
+                    selectedDay = { store.isFiltered
+                        ? props.isFilteredDay?.id : props.isSelectedDay?.id }
+                    { ...item } />;
+            }) }
         </div>
     );
 });

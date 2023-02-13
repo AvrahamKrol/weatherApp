@@ -5,11 +5,9 @@ const tooLongMessage = 'максимальная длина - ${max} симво�
 
 export const schema = yup.object().shape({
     minTemperature: yup
-        .number()
-        .max(2, tooLongMessage)
-        .required('*'),
+        .number(),
+    // .required('*'),
     maxTemperature: yup
-        .number()
-        .max(2, tooLongMessage)
-        .required('*'),
+        .number(),
+    // .required('*'),
 });

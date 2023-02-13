@@ -28,7 +28,6 @@ export const App = observer(() => {
                 formatedDay = { day }
                 isFilteredDay = { isFilteredDay } />
             <CurrentWeather
-                isNothing = { isNothing }
                 formatedDay = { day }
                 isFilteredDay = { isFilteredDay } />
             <Forecast

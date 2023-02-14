@@ -6,10 +6,6 @@ import { store } from './mobx';
 
 export const Context = createContext(store);
 
-export const Provider = (props) => {
-    return (
-        <Context.Provider value = { store }>
-            { props.children }
-        </Context.Provider>
-    );
-};
+export const Provider = ({ children }) => (
+    <Context.Provider value = { store }>{ children }</Context.Provider>
+);

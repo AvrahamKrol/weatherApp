@@ -1,7 +1,7 @@
 {
     "name": "weather",
     "version": "1.0.2",
-    "homepage": "https://github.com/AvrahamKrol/weatherApp.git",
+    "homepage": "https://avrahamkrol.github.io/weatherApp/",
     "private": true,
     "author": {
         "email": "admin@lectrum.io",
